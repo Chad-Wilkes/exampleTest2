@@ -6,7 +6,7 @@ describe('My Login application', () => {
     it('should login with valid credentials', async () => {
         await LoginPage.open()
 
-        await LoginPage.login('standard_user', 'secret_sauce')
+        await LoginPage.login(LoginPage.standard_user, LoginPage.standard_pass)
         await browser.pause(3000)
         await expect(InventoryPage.appLogo).toBeExisting()
         await expect(InventoryPage.appLogo).toHaveText(

@@ -8,6 +8,9 @@ class LoginPage extends Page {
     /**
      * define selectors using getter methods
      */
+    standard_user = 'standard_user';
+    standard_pass = 'secret_sauce';
+
     get inputUsername () {
         return $('#user-name');
     }
@@ -25,8 +28,10 @@ class LoginPage extends Page {
      * e.g. to login using username and password
      */
     async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
+        //await this.inputUsername.setValue(username);
+        await this.inputUsername.setValue(this.standard_user);
+        await this.inputPassword.setValue(this.standard_pass);
+        //await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
     }
 
