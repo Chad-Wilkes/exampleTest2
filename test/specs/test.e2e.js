@@ -6,13 +6,14 @@ describe('My Login application', () => {
     for (let i = 0; i < LoginPage.acceptedUsers.length; i++) {
         it('should login with valid credentials', async () => {
             await LoginPage.open()
-        // await browser.pause(3000)
+        await browser.pause(2000)
             await LoginPage.login(LoginPage.acceptedUsers[i], LoginPage.standard_pass)    
         // await LoginPage.login(LoginPage.standard_user, LoginPage.standard_pass)
-        // await browser.pause(3000)
+        await browser.pause(2000)
             await expect(InventoryPage.appLogo).toBeExisting()
             await expect(InventoryPage.appLogo).toHaveText(
                 expect.stringContaining('Swag Labs'))
+            await browser.pause(2000)
        })
     }
 })

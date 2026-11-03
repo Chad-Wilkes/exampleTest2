@@ -32,9 +32,9 @@ class LoginPage extends Page {
     async login (username, password) {
         //await this.inputUsername.setValue(username);
         //await this.inputUsername.setValue(this.standard_user);
-        await this.inputUsername.setValue(this.acceptedUsers[0]);
-        await this.inputPassword.setValue(this.standard_pass);
-        //await this.inputPassword.setValue(password);
+        await this.inputUsername.setValue(username);
+        await this.inputPassword.setValue(password);
+        //await this.inputPassword.setValue(this.standard_pass);
         await this.btnSubmit.click();
     }
 
