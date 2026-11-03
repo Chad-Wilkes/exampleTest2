@@ -3,12 +3,13 @@ import LoginPage from '../pageobjects/login.page.js'
 import InventoryPage from '../pageobjects/inventory.page.js'
 
 describe('My Login application', () => {
-    for (let i = 0; i < LoginPage.acceptedUsers.length; i++) {
+    for (let i = 0; i < LoginPage.credentials.users.length; i++) {
         it('should login with valid credentials', async () => {
             await LoginPage.open()
             await browser.pause(2000)
-            await LoginPage.login(LoginPage.acceptedUsers[i], LoginPage.standard_pass)    
-        // await LoginPage.login(LoginPage.standard_user, LoginPage.standard_pass)
+            await LoginPage.login(LoginPage.credentials.users[i], LoginPage.credentials.password)
+            // await LoginPage.login(LoginPage.acceptedUsers[i], LoginPage.standard_pass)    
+            // await LoginPage.login(LoginPage.standard_user, LoginPage.standard_pass)
             await browser.pause(2000)
             await expect(InventoryPage.appLogo).toBeExisting()
             await expect(InventoryPage.appLogo).toHaveText(
