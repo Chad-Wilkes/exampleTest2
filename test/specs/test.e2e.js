@@ -1,31 +1,38 @@
 import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page.js'
-import InventoryPage from '../pageobjects/inventory.page.js'
-import Products from '../pageobjects/products.page.js'  
+import PosCredentialsPage from '../pageobjects/poscredentials.page.js'
+import NegCredentialsPage from '../pageobjects/negcredentials.page.js'
+
 
 describe('My Login application', () => {
-    for (let i = 0; i < LoginPage.credentials.users.length; i++) {
-        it('should login with valid credentials', async () => {
-            await LoginPage.open()
+    for (let i = 0; i < PosCredentialsPage.credentials.users.length; i++) {
+        it('positive test credentials', async () => {
+            await PosCredentialsPage.open()
             await browser.pause(1000)
-            await LoginPage.login(LoginPage.credentials.users[i], LoginPage.credentials.password)
-            // await LoginPage.login(LoginPage.acceptedUsers[i], LoginPage.standard_pass)    
-            // await LoginPage.login(LoginPage.standard_user, LoginPage.standard_pass)
+            await PosCredentialsPage.login(PosCredentialsPage.credentials.users[i], PosCredentialsPage.credentials.password)
             await browser.pause(1000)
-            await expect(InventoryPage.appLogo).toBeExisting()
-            await expect(InventoryPage.appLogo).toHaveText(
-                expect.stringContaining('Swag Labs'))
-            await browser.pause(1000)
+           
+            if (PosCredentialsPage.credentials.users[i] === "locked_out_user") {
+                await expect($('[role="alert"]')).toBeExisting()
+                await expect($('[role="alert"]')).toHaveText(
+                    expect.stringContaining('locked out'))
+            } else {
+                await expect($('.app_logo')).toBeExisting()
+                await expect($('.app_logo')).toHaveText(
+                    expect.stringContaining('Swag Labs'))
+            }
         })
     }
 
-        it('should add an item to the cart', async () => {
-            await Products.addItemToCart('Sauce Labs Backpack');
-            await browser.pause(2000)
-            await expect($('#remove-sauce-labs-backpack')).toBeExisting()
-            // await expect($('#shopping_cart_link')).toHaveText(
-            //     expect('#shopping_cart_link'))
-            await browser.pause(2000)
+       for (let i = 0; i < NegCredentialsPage.credentials.users.length; i++) {
+        it('negative test credentials', async () => {
+            await NegCredentialsPage.open()
+            await browser.pause(1000)
+            await NegCredentialsPage.login(NegCredentialsPage.credentials.users[i], NegCredentialsPage.credentials.password)
+            await browser.pause(1000)
+            await expect($('[role="alert"]')).toBeExisting()
+            await expect($('[role="alert"]')).toHaveText(
+                expect.stringContaining('Username and password do not match'))
         })
+    }
 })
 
